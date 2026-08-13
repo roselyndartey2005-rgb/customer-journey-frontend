@@ -16,7 +16,7 @@ export const products: Product[] = [
     price: 79.99,
     category: 'Electronics',
     description: 'Compact waterproof speaker with 360-degree sound, 12-hour playtime, and rugged design. Take your music anywhere from the beach to the mountains.',
-    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1589003077984-894e133dabab?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 3,
@@ -40,8 +40,9 @@ export const products: Product[] = [
     price: 149.99,
     category: 'Electronics',
     description: 'Hot-swappable mechanical keyboard with RGB backlighting, PBT keycaps, and a satisfying tactile typing experience. Built for both work and gaming.',
-    image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&h=800&fit=crop&q=80',
   },
+
   // Clothing
   {
     id: 6,
@@ -49,7 +50,7 @@ export const products: Product[] = [
     price: 89.99,
     category: 'Clothing',
     description: 'Ultra-soft 100% merino wool sweater that regulates temperature naturally. Machine washable, pill-resistant, and perfect for layering in any season.',
-    image: 'https://images.unsplash.com/photo-1434389677669-e08b4cead0e2?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 7,
@@ -57,7 +58,7 @@ export const products: Product[] = [
     price: 65.00,
     category: 'Clothing',
     description: 'Versatile stretch chinos with a modern slim fit. Made from organic cotton with just enough elastane for all-day comfort. Dress them up or down.',
-    image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 8,
@@ -73,8 +74,9 @@ export const products: Product[] = [
     price: 175.00,
     category: 'Clothing',
     description: 'Lightweight packable jacket with sealed seams and adjustable hood. Keeps you dry in unexpected downpours without the bulk of a traditional rain coat.',
-    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1548883354-7622d03aca27?w=800&h=800&fit=crop&q=80',
   },
+
   // Home & Living
   {
     id: 10,
@@ -82,7 +84,7 @@ export const products: Product[] = [
     price: 42.00,
     category: 'Home & Living',
     description: 'Set of three artisan soy candles in calming scents: cedar and sage, vanilla bean, and fresh linen. 45-hour burn time each. Clean-burning with cotton wicks.',
-    image: 'https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 11,
@@ -90,7 +92,7 @@ export const products: Product[] = [
     price: 68.00,
     category: 'Home & Living',
     description: 'Handcrafted ceramic dripper with matching carafe and measuring scoop. Produces a clean, bright cup of coffee. Includes 50 natural paper filters.',
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 12,
@@ -98,7 +100,7 @@ export const products: Product[] = [
     price: 95.00,
     category: 'Home & Living',
     description: 'Stonewashed French linen throw in a neutral oat color. Gets softer with every wash. Generous 60x80 inch size for the couch or end of the bed.',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 13,
@@ -106,7 +108,7 @@ export const products: Product[] = [
     price: 48.00,
     category: 'Home & Living',
     description: 'Solid walnut desk organizer with compartments for pens, phone, cards, and small items. Clean lines and natural wood grain keep your workspace tidy and elegant.',
-    image: 'https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 14,
@@ -116,6 +118,7 @@ export const products: Product[] = [
     description: 'Self-watering planter with grow light, organic soil pods, and seeds for basil, mint, and cilantro. Fresh herbs year-round with minimal effort.',
     image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=800&fit=crop&q=80',
   },
+
   // Accessories
   {
     id: 15,
@@ -131,7 +134,7 @@ export const products: Product[] = [
     price: 125.00,
     category: 'Accessories',
     description: 'Classic acetate frames with polarized lenses that reduce glare and protect against UV rays. Lightweight, durable, and flattering on every face shape.',
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=800&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&h=800&fit=crop&q=80',
   },
   {
     id: 17,
@@ -151,4 +154,21 @@ export const products: Product[] = [
   },
 ];
 
-export const categories: string[] = ['Electronics', 'Clothing', 'Home & Living', 'Accessories'];
+export const categories = [
+  {
+    name: "Electronics",
+    image: "https://images.unsplash.com/photo-1498049794561-7780e7231661"
+  },
+  {
+    name: "Clothing",
+    image: "https://images.unsplash.com/photo-1445205170230-053b83016050"
+  },
+  {
+    name: "Home & Living",
+    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace"
+  },
+  {
+    name: "Accessories",
+    image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49"
+  }
+];

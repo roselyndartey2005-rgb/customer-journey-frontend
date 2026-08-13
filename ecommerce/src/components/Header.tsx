@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCartStore } from '../store/cartStore';
 import { useCustomerStore } from '../store/customerStore';
 import { CartDrawer } from './CartDrawer';
+import Logo from "../assets/Ardent Logo.png";
 
 export function Header() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -42,10 +43,10 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-                <span className="text-white font-bold text-sm">A</span>
+              <div className="bg-img w-20 h-20">
+                <img src={Logo} />
               </div>
-              <span className="text-xl font-bold tracking-tight gradient-text">ARDENT</span>
+              
             </Link>
 
             {/* Navigation */}

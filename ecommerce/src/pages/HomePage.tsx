@@ -70,34 +70,58 @@ export function HomePage() {
 
       {/* Categories */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold text-zinc-900 mb-10">Shop by Category</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {categories.map((category, index) => (
-            <Link
-              key={category}
-              to={`/products?category=${encodeURIComponent(category)}`}
-              onClick={() => track('CLICK', { action: 'category_nav', category })}
-              className="group relative aspect-[4/3] rounded-2xl bg-gradient-to-br from-zinc-100 to-zinc-200 overflow-hidden flex items-end p-6 hover-glow animate-slide-up"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/70 via-zinc-900/20 to-transparent group-hover:from-zinc-900/80 transition-all duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-accent)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative text-white font-bold text-base group-hover:scale-110 transition-transform duration-300 inline-block">
-                {category}
-              </span>
-              <svg
-                className="absolute top-5 right-5 w-6 h-6 text-white/60 group-hover:text-white group-hover:scale-110 transition-all duration-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          ))}
-        </div>
-      </section>
+  <h2 className="text-3xl font-bold text-zinc-900 mb-10">
+    Shop by Category
+  </h2>
 
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+    {categories.map((category, index) => (
+      <Link
+        key={category.name}
+        to={`/products?category=${encodeURIComponent(category.name)}`}
+        onClick={() =>
+          track("CLICK", {
+            action: "category_nav",
+            category: category.name,
+          })
+        }
+        className="group relative aspect-[4/3] rounded-2xl overflow-hidden flex items-end p-6 hover-glow animate-slide-up"
+        style={{
+          animationDelay: `${index * 50}ms`,
+          backgroundImage: `url(${category.image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/70 via-zinc-900/20 to-transparent group-hover:from-zinc-900/80 transition-all duration-300" />
+
+        {/* Hover color overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-accent)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Category name */}
+        <span className="relative text-white font-bold text-base group-hover:scale-110 transition-transform duration-300 inline-block">
+          {category.name}
+        </span>
+
+        {/* Arrow */}
+        <svg
+          className="absolute top-5 right-5 w-6 h-6 text-white/60 group-hover:text-white group-hover:scale-110 transition-all duration-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </Link>
+    ))}
+  </div>
+</section>
       {/* Featured Products Slider */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
         {/* Background decoration */}
