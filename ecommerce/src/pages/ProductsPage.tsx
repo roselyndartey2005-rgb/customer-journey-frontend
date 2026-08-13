@@ -65,48 +65,75 @@ export function ProductsPage() {
         </p>
       </div>
 
-      {/* Category Carousel */}
-      <div className="mb-10 animate-slide-up" style={{ animationDelay: '100ms' }}>
-        <h3 className="text-sm font-semibold text-zinc-600 mb-6 uppercase tracking-wider">Browse by Category</h3>
-        <Carousel itemWidth={200} gap={20} speed={40} pauseOnHover>
-          {[
-            { name: 'All Products', filter: '', icon: '🛍️' },
-            ...categories.map((cat) => ({
-              name: cat,
-              filter: cat,
-              icon: cat === 'Electronics' ? '⚡' : cat === 'Clothing' ? '👕' : cat === 'Home & Living' ? '🏠' : '✨'
-            }))
-          ].map((item) => (
-            <button
-              key={item.filter}
-              onClick={() => handleCategoryClick(item.filter)}
-              className={`relative group h-36 rounded-2xl overflow-hidden transition-all duration-300 shadow-lg ${
-                (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
-                  ? 'ring-4 ring-purple-600 ring-offset-4 scale-105 shadow-2xl'
-                  : 'hover:scale-105 hover:shadow-xl'
-              }`}
-            >
-              <div className={`absolute inset-0 transition-all duration-300 ${
-                (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
-                  ? 'bg-gradient-to-br from-purple-600 via-pink-600 to-purple-600'
-                  : 'bg-gradient-to-br from-zinc-100 to-zinc-200 group-hover:from-zinc-200 group-hover:to-zinc-300'
-              }`}>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
-              </div>
-              <div className="relative h-full flex flex-col items-center justify-center p-4">
-                <div className="text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
-                <div className={`text-sm font-bold text-center transition-colors ${
-                  (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
-                    ? 'text-white'
-                    : 'text-zinc-700 group-hover:text-zinc-900'
-                }`}>
-                  {item.name}
-                </div>
-              </div>
-            </button>
-          ))}
-        </Carousel>
-      </div>
+     {/* Category Carousel */}
+<div
+  className="mb-10 animate-slide-up"
+  style={{ animationDelay: "100ms" }}
+>
+  <h3 className="text-sm font-semibold text-zinc-600 mb-6 uppercase tracking-wider">
+    Browse by Category
+  </h3>
+
+  <Carousel itemWidth={200} gap={20} speed={40} pauseOnHover>
+    {[
+      {
+        name: "All Products",
+        filter: "",
+        image:
+          "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=800&fit=crop&q=80",
+      },
+
+      ...categories.map((cat) => ({
+        name: cat.name,
+        filter: cat.name,
+        image: cat.image,
+      })),
+    ].map((item) => (
+      <button
+        key={item.filter}
+        onClick={() => handleCategoryClick(item.filter)}
+        className={`relative group h-36 rounded-2xl overflow-hidden transition-all duration-300 shadow-lg ${
+          (item.filter === "" && !categoryFilter) ||
+          categoryFilter === item.filter
+            ? "ring-4 ring-purple-600 ring-offset-4 scale-105 shadow-2xl"
+            : "hover:scale-105 hover:shadow-xl"
+        }`}
+      >
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+          style={{
+            backgroundImage: `url(${item.image})`,
+          }}
+        />
+
+        {/* Dark overlay */}
+        <div
+          className={`absolute inset-0 transition-all duration-300 ${
+            (item.filter === "" && !categoryFilter) ||
+            categoryFilter === item.filter
+              ? "bg-black/40"
+              : "bg-black/30 group-hover:bg-black/40"
+          }`}
+        />
+
+        {/* Category name */}
+        <div className="relative h-full flex items-end justify-center p-4">
+          <div
+            className={`text-sm font-bold text-center transition-colors ${
+              (item.filter === "" && !categoryFilter) ||
+              categoryFilter === item.filter
+                ? "text-white"
+                : "text-white"
+            }`}
+          >
+            {item.name}
+          </div>
+        </div>
+      </button>
+    ))}
+  </Carousel>
+</div>
 
       {/* Search and Sort */}
       <div className="flex flex-col md:flex-row gap-4 mb-10 animate-slide-up" style={{ animationDelay: '200ms' }}>
