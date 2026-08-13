@@ -79,3 +79,12 @@ export interface RawEventCreateRequest {
   eventKey: string;
   durationSeconds: number | null;
 }
+
+export interface EventTrackingResponse {
+  processed: boolean;
+  duplicate: boolean;
+  noise: boolean;
+  reason?: string;
+  journeyId?: number;
+  touchpointId?: number;
+}

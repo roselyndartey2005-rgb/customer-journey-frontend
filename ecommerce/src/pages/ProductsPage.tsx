@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { products, categories } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Input } from '../components/Input';
+import { Carousel } from '../components/Slider';
 import { track } from '../lib/tracker';
 
 type SortOption = 'default' | 'price-asc' | 'price-desc';
@@ -64,8 +65,51 @@ export function ProductsPage() {
         </p>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-10 animate-slide-up" style={{ animationDelay: '100ms' }}>
+      {/* Category Carousel */}
+      <div className="mb-10 animate-slide-up" style={{ animationDelay: '100ms' }}>
+        <h3 className="text-sm font-semibold text-zinc-600 mb-4 uppercase tracking-wider">Browse by Category</h3>
+        <Carousel itemWidth={200} gap={16} speed={40}>
+          {[
+            { name: 'All Products', filter: '', icon: '🛍️' },
+            ...categories.map((cat) => ({
+              name: cat,
+              filter: cat,
+              icon: cat === 'Electronics' ? '⚡' : cat === 'Clothing' ? '👕' : cat === 'Home & Living' ? '🏠' : '✨'
+            }))
+          ].map((item) => (
+            <button
+              key={item.filter}
+              onClick={() => handleCategoryClick(item.filter)}
+              className={`relative group h-32 rounded-2xl overflow-hidden transition-all ${
+                (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
+                  ? 'ring-4 ring-[var(--color-primary)] ring-offset-2 scale-105'
+                  : 'hover:scale-105'
+              }`}
+            >
+              <div className={`absolute inset-0 ${
+                (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
+                  ? 'bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)]'
+                  : 'bg-gradient-to-br from-zinc-100 to-zinc-200'
+              }`}>
+                <div className="absolute inset-0 backdrop-blur-sm bg-white/10" />
+              </div>
+              <div className="relative h-full flex flex-col items-center justify-center p-4">
+                <div className="text-4xl mb-2">{item.icon}</div>
+                <div className={`text-sm font-bold text-center ${
+                  (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
+                    ? 'text-white'
+                    : 'text-zinc-700'
+                }`}>
+                  {item.name}
+                </div>
+              </div>
+            </button>
+          ))}
+        </Carousel>
+      </div>
+
+      {/* Search and Sort */}
+      <div className="flex flex-col md:flex-row gap-4 mb-10 animate-slide-up" style={{ animationDelay: '200ms' }}>
         <div className="flex-1 max-w-sm">
           <div className="relative">
             <Input
@@ -83,31 +127,6 @@ export function ProductsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-        </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <button
-            onClick={() => handleCategoryClick('')}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-              !categoryFilter
-                ? 'bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white shadow-lg scale-105'
-                : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:scale-105'
-            }`}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleCategoryClick(cat)}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                categoryFilter === cat
-                  ? 'bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white shadow-lg scale-105'
-                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:scale-105'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
         </div>
         <select
           value={sort}

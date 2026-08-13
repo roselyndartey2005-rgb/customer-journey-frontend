@@ -88,7 +88,11 @@ function getCampaignName(): string {
   return params.get('utm_campaign') || 'Default Campaign';
 }
 
-export function track(eventType: string, payload: Record<string, any> = {}): void {
+export function track(
+  eventType: string,
+  payload: Record<string, any> = {},
+  options?: { keepalive?: boolean }
+): void {
   try {
     const event: RawEventCreateRequest = {
       customerId: getCustomerId(),
@@ -112,8 +116,8 @@ export function track(eventType: string, payload: Record<string, any> = {}): voi
       durationSeconds: null,
     };
 
-    sendRawEvent(event).catch((err) => {
-      console.warn('[Tracker] Failed to send event:', err.message);
+    sendRawEvent(event, options).catch((err) => {
+      console.warn('[Tracker] Failed to send event:', err?.message || err);
     });
   } catch (err) {
     console.warn('[Tracker] Error creating event:', err);
@@ -139,7 +143,17 @@ export function initBounceDetection(): void {
   window.addEventListener('beforeunload', () => {
     const timeOnPage = (Date.now() - pageLoadTime) / 1000;
     if (!hasInteracted && timeOnPage <= 5) {
-      track('BOUNCE', { timeOnPageSeconds: timeOnPage });
+      // Use keepalive for events fired during page unload
+      track('BOUNCE', { timeOnPageSeconds: timeOnPage }, { keepalive: true });
     }
   });
+}
+
+// Track navigation events with keepalive to ensure delivery before page unload
+export function trackNavigation(destination: string): void {
+  track(
+    'NAVIGATION',
+    { from: window.location.href, to: destination },
+    { keepalive: true }
+  );
 }

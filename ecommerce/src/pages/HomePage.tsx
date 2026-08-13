@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import { products, categories } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Button } from '../components/Button';
+import { Slider, Carousel } from '../components/Slider';
 import { track } from '../lib/tracker';
 
 export function HomePage() {
-  const featured = products.slice(0, 8);
+  const featured = products.slice(0, 12);
+  const newArrivals = products.slice(0, 8);
+  const bestSellers = [...products].sort(() => Math.random() - 0.5).slice(0, 8);
 
   return (
     <div>
@@ -95,7 +98,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Featured Products Slider */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" />
@@ -119,13 +122,171 @@ export function HomePage() {
               </svg>
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {featured.map((product, index) => (
-              <div key={product.id} className="opacity-0 animate-slide-up" style={{ animationDelay: `${index * 50}ms` }}>
-                <ProductCard product={product} />
+
+          {/* Desktop: Show 4 items per view */}
+          <div className="hidden md:block">
+            <Slider
+              autoPlay
+              autoPlayInterval={4000}
+              showArrows
+              showDots
+              itemsPerView={4}
+              gap={24}
+            >
+              {featured.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </Slider>
+          </div>
+
+          {/* Mobile: Show 2 items per view */}
+          <div className="md:hidden">
+            <Slider
+              autoPlay
+              autoPlayInterval={4000}
+              showArrows
+              showDots
+              itemsPerView={2}
+              gap={16}
+            >
+              {featured.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </Slider>
+          </div>
+        </div>
+      </section>
+
+      {/* New Arrivals Slider */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h2 className="text-3xl font-bold text-zinc-900">New Arrivals</h2>
+            <p className="text-zinc-600 mt-2">Fresh picks just for you</p>
+          </div>
+          <Link
+            to="/products?category=Electronics"
+            className="group flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors"
+          >
+            See all new
+            <svg
+              className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+
+        {/* Desktop: 4 items */}
+        <div className="hidden md:block">
+          <Slider
+            showArrows
+            showDots
+            itemsPerView={4}
+            gap={24}
+          >
+            {newArrivals.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Slider>
+        </div>
+
+        {/* Mobile: 2 items */}
+        <div className="md:hidden">
+          <Slider
+            showArrows
+            showDots
+            itemsPerView={2}
+            gap={16}
+          >
+            {newArrivals.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Slider>
+        </div>
+      </section>
+
+      {/* Best Sellers Carousel (Continuous Scroll) */}
+      <section className="py-20 bg-gradient-to-br from-zinc-50 to-zinc-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-zinc-900">Best Sellers</h2>
+            <p className="text-zinc-600 mt-2">Customer favorites that keep selling out</p>
+          </div>
+        </div>
+
+        <Carousel itemWidth={320} gap={24} speed={30}>
+          {bestSellers.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </Carousel>
+      </section>
+
+      {/* Testimonials Slider */}
+      <section className="border-t border-zinc-200 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-zinc-900">What Our Customers Say</h2>
+            <p className="text-zinc-600 mt-2">Don't just take our word for it</p>
+          </div>
+
+          <Slider
+            autoPlay
+            autoPlayInterval={5000}
+            showArrows
+            showDots
+            itemsPerView={1}
+          >
+            {[
+              {
+                name: 'Sarah Johnson',
+                role: 'Interior Designer',
+                text: 'The quality is absolutely outstanding. Every piece I\'ve purchased has exceeded my expectations. The attention to detail is remarkable.',
+                rating: 5,
+              },
+              {
+                name: 'Michael Chen',
+                role: 'Tech Enthusiast',
+                text: 'Finally found a store that understands minimalism without compromising on functionality. The curation is spot on.',
+                rating: 5,
+              },
+              {
+                name: 'Emily Rodriguez',
+                role: 'Creative Director',
+                text: 'These products have genuinely improved my daily life. Simple, elegant, and built to last. Highly recommend!',
+                rating: 5,
+              },
+            ].map((testimonial, index) => (
+              <div key={index} className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-10 md:p-12 text-center">
+                <div className="flex justify-center mb-6">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <svg
+                      key={i}
+                      className="w-6 h-6 text-yellow-400 fill-current"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-xl md:text-2xl text-zinc-800 font-medium leading-relaxed mb-8 max-w-3xl mx-auto">
+                  "{testimonial.text}"
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center text-white font-bold text-lg">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div className="text-left">
+                    <div className="font-bold text-zinc-900">{testimonial.name}</div>
+                    <div className="text-sm text-zinc-600">{testimonial.role}</div>
+                  </div>
+                </div>
               </div>
             ))}
-          </div>
+          </Slider>
         </div>
       </section>
 
