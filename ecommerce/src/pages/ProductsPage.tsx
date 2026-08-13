@@ -67,8 +67,8 @@ export function ProductsPage() {
 
       {/* Category Carousel */}
       <div className="mb-10 animate-slide-up" style={{ animationDelay: '100ms' }}>
-        <h3 className="text-sm font-semibold text-zinc-600 mb-4 uppercase tracking-wider">Browse by Category</h3>
-        <Carousel itemWidth={200} gap={16} speed={40}>
+        <h3 className="text-sm font-semibold text-zinc-600 mb-6 uppercase tracking-wider">Browse by Category</h3>
+        <Carousel itemWidth={200} gap={20} speed={40} pauseOnHover>
           {[
             { name: 'All Products', filter: '', icon: '🛍️' },
             ...categories.map((cat) => ({
@@ -80,25 +80,25 @@ export function ProductsPage() {
             <button
               key={item.filter}
               onClick={() => handleCategoryClick(item.filter)}
-              className={`relative group h-32 rounded-2xl overflow-hidden transition-all ${
+              className={`relative group h-36 rounded-2xl overflow-hidden transition-all duration-300 shadow-lg ${
                 (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
-                  ? 'ring-4 ring-[var(--color-primary)] ring-offset-2 scale-105'
-                  : 'hover:scale-105'
+                  ? 'ring-4 ring-purple-600 ring-offset-4 scale-105 shadow-2xl'
+                  : 'hover:scale-105 hover:shadow-xl'
               }`}
             >
-              <div className={`absolute inset-0 ${
+              <div className={`absolute inset-0 transition-all duration-300 ${
                 (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
-                  ? 'bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)]'
-                  : 'bg-gradient-to-br from-zinc-100 to-zinc-200'
+                  ? 'bg-gradient-to-br from-purple-600 via-pink-600 to-purple-600'
+                  : 'bg-gradient-to-br from-zinc-100 to-zinc-200 group-hover:from-zinc-200 group-hover:to-zinc-300'
               }`}>
-                <div className="absolute inset-0 backdrop-blur-sm bg-white/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
               </div>
               <div className="relative h-full flex flex-col items-center justify-center p-4">
-                <div className="text-4xl mb-2">{item.icon}</div>
-                <div className={`text-sm font-bold text-center ${
+                <div className="text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
+                <div className={`text-sm font-bold text-center transition-colors ${
                   (item.filter === '' && !categoryFilter) || categoryFilter === item.filter
                     ? 'text-white'
-                    : 'text-zinc-700'
+                    : 'text-zinc-700 group-hover:text-zinc-900'
                 }`}>
                   {item.name}
                 </div>

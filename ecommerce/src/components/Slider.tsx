@@ -10,6 +10,7 @@ interface SliderProps {
   gap?: number;
   itemsPerView?: number;
   className?: string;
+  arrowPosition?: 'inside' | 'outside';
 }
 
 export function Slider({
@@ -21,6 +22,7 @@ export function Slider({
   gap = 16,
   itemsPerView = 1,
   className = '',
+  arrowPosition = 'inside',
 }: SliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -51,7 +53,7 @@ export function Slider({
 
   return (
     <div
-      className={`relative ${className}`}
+      className={`relative group ${arrowPosition === 'outside' ? 'px-14' : ''} ${className}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -59,7 +61,7 @@ export function Slider({
       <div className="overflow-hidden rounded-2xl">
         <div
           ref={sliderRef}
-          className="flex transition-transform duration-500 ease-out"
+          className="flex transition-transform duration-700 ease-in-out"
           style={{
             transform: `translateX(-${currentIndex * 100}%)`,
             gap: `${gap}px`,
@@ -97,33 +99,62 @@ export function Slider({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-zinc-800 hover:bg-white hover:scale-110 transition-all duration-200 z-10"
+            className={`
+              absolute top-1/2 -translate-y-1/2 z-10
+              w-12 h-12 rounded-full
+              bg-white shadow-xl
+              flex items-center justify-center
+              text-zinc-800
+              transition-all duration-300
+              opacity-0 group-hover:opacity-100
+              hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600
+              hover:text-white hover:scale-110
+              disabled:opacity-50 disabled:cursor-not-allowed
+              ${arrowPosition === 'inside' ? 'left-4' : '-left-6'}
+            `}
             aria-label="Previous slide"
+            disabled={currentIndex === 0}
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={24} strokeWidth={2.5} />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-zinc-800 hover:bg-white hover:scale-110 transition-all duration-200 z-10"
+            className={`
+              absolute top-1/2 -translate-y-1/2 z-10
+              w-12 h-12 rounded-full
+              bg-white shadow-xl
+              flex items-center justify-center
+              text-zinc-800
+              transition-all duration-300
+              opacity-0 group-hover:opacity-100
+              hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600
+              hover:text-white hover:scale-110
+              disabled:opacity-50 disabled:cursor-not-allowed
+              ${arrowPosition === 'inside' ? 'right-4' : '-right-6'}
+            `}
             aria-label="Next slide"
+            disabled={currentIndex === totalSlides - 1}
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={24} strokeWidth={2.5} />
           </button>
         </>
       )}
 
       {/* Dots Navigation */}
       {showDots && totalSlides > 1 && (
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="flex justify-center gap-2 mt-8">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? 'w-8 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]'
-                  : 'w-2 bg-zinc-300 hover:bg-zinc-400'
-              }`}
+              className={`
+                h-2.5 rounded-full transition-all duration-500
+                ${
+                  index === currentIndex
+                    ? 'w-10 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 shadow-lg'
+                    : 'w-2.5 bg-zinc-300 hover:bg-zinc-400 hover:w-6'
+                }
+              `}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -140,6 +171,7 @@ interface CarouselProps {
   itemWidth?: number;
   speed?: number;
   className?: string;
+  pauseOnHover?: boolean;
 }
 
 export function Carousel({
@@ -148,8 +180,10 @@ export function Carousel({
   itemWidth = 300,
   speed = 50,
   className = '',
+  pauseOnHover = true,
 }: CarouselProps) {
   const [offset, setOffset] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -157,7 +191,7 @@ export function Carousel({
     const contentWidth = contentRef.current?.scrollWidth || 0;
     const containerWidth = containerRef.current?.offsetWidth || 0;
 
-    if (contentWidth <= containerWidth) return;
+    if (contentWidth <= containerWidth || isPaused) return;
 
     const animation = setInterval(() => {
       setOffset((prev) => {
@@ -170,13 +204,18 @@ export function Carousel({
     }, speed);
 
     return () => clearInterval(animation);
-  }, [speed, children.length]);
+  }, [speed, children.length, isPaused]);
 
   return (
-    <div ref={containerRef} className={`overflow-hidden ${className}`}>
+    <div
+      ref={containerRef}
+      className={`overflow-hidden ${className}`}
+      onMouseEnter={() => pauseOnHover && setIsPaused(true)}
+      onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+    >
       <div
         ref={contentRef}
-        className="flex"
+        className="flex transition-transform duration-200"
         style={{
           transform: `translateX(-${offset}px)`,
           gap: `${gap}px`,

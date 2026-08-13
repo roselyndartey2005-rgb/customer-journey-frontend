@@ -124,14 +124,32 @@ export function HomePage() {
           </div>
 
           {/* Desktop: Show 4 items per view */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Slider
               autoPlay
-              autoPlayInterval={4000}
+              autoPlayInterval={5000}
               showArrows
               showDots
               itemsPerView={4}
               gap={24}
+              arrowPosition="outside"
+            >
+              {featured.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </Slider>
+          </div>
+
+          {/* Tablet: Show 3 items per view */}
+          <div className="hidden md:block lg:hidden">
+            <Slider
+              autoPlay
+              autoPlayInterval={5000}
+              showArrows
+              showDots
+              itemsPerView={3}
+              gap={20}
+              arrowPosition="inside"
             >
               {featured.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -143,11 +161,12 @@ export function HomePage() {
           <div className="md:hidden">
             <Slider
               autoPlay
-              autoPlayInterval={4000}
+              autoPlayInterval={5000}
               showArrows
               showDots
               itemsPerView={2}
               gap={16}
+              arrowPosition="inside"
             >
               {featured.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -181,12 +200,28 @@ export function HomePage() {
         </div>
 
         {/* Desktop: 4 items */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Slider
             showArrows
             showDots
             itemsPerView={4}
             gap={24}
+            arrowPosition="outside"
+          >
+            {newArrivals.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Slider>
+        </div>
+
+        {/* Tablet: 3 items */}
+        <div className="hidden md:block lg:hidden">
+          <Slider
+            showArrows
+            showDots
+            itemsPerView={3}
+            gap={20}
+            arrowPosition="inside"
           >
             {newArrivals.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -201,6 +236,7 @@ export function HomePage() {
             showDots
             itemsPerView={2}
             gap={16}
+            arrowPosition="inside"
           >
             {newArrivals.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -210,19 +246,27 @@ export function HomePage() {
       </section>
 
       {/* Best Sellers Carousel (Continuous Scroll) */}
-      <section className="py-20 bg-gradient-to-br from-zinc-50 to-zinc-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <section className="py-20 bg-gradient-to-br from-purple-50/50 via-pink-50/50 to-blue-50/50 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-float" />
+          <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-zinc-900">Best Sellers</h2>
-            <p className="text-zinc-600 mt-2">Customer favorites that keep selling out</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-3">Best Sellers</h2>
+            <p className="text-lg text-zinc-600">Customer favorites that keep selling out</p>
           </div>
         </div>
 
-        <Carousel itemWidth={320} gap={24} speed={30}>
-          {bestSellers.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </Carousel>
+        <div className="relative">
+          <Carousel itemWidth={320} gap={24} speed={35} pauseOnHover>
+            {bestSellers.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Carousel>
+        </div>
       </section>
 
       {/* Testimonials Slider */}
@@ -235,10 +279,11 @@ export function HomePage() {
 
           <Slider
             autoPlay
-            autoPlayInterval={5000}
+            autoPlayInterval={6000}
             showArrows
             showDots
             itemsPerView={1}
+            arrowPosition="inside"
           >
             {[
               {
