@@ -8,7 +8,7 @@ export function RegisterPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState<'ADMIN' | 'ANALYST' | 'VIEWER'>('VIEWER');
+  const [role, setRole] = useState<'ADMIN' | 'ANALYST'>('ADMIN');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
@@ -88,11 +88,10 @@ export function RegisterPage() {
               <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Role</label>
               <select
                 value={role}
-                onChange={(e) => setRole(e.target.value as 'ADMIN' | 'ANALYST' | 'VIEWER')}
+                onChange={(e) => setRole(e.target.value as 'ADMIN' | 'ANALYST')}
                 required
                 className="w-full px-3 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text-primary)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
               >
-                <option value="VIEWER">Viewer</option>
                 <option value="ANALYST">Analyst</option>
                 <option value="ADMIN">Admin</option>
               </select>
