@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCartStore } from '../store/cartStore';
 import { useCustomerStore } from '../store/customerStore';
 import { CartDrawer } from './CartDrawer';
-import Logo from "../assets/Ardent Logo.png";
+import Logo from "../assets/Ardentlogo.png";
 
 export function Header() {
   const [cartOpen, setCartOpen] = useState(false);
