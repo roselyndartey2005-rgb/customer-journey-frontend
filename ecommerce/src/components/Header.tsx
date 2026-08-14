@@ -93,17 +93,17 @@ export function Header() {
               {customer ? (
                 <Link
                   to="/account"
-                  className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-zinc-600 hover:text-[var(--color-primary)] hover:bg-zinc-100 rounded-lg transition-all"
+                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-zinc-600 hover:text-[var(--color-primary)] hover:bg-zinc-100 rounded-lg transition-all"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
-                  {customer.name.split(' ')[0]}
+                  <span className="hidden sm:inline">{customer.name.split(' ')[0]}</span>
                 </Link>
               ) : (
                 <Link
                   to="/login"
-                  className="hidden sm:flex items-center px-4 py-2 text-sm font-medium text-zinc-600 hover:text-[var(--color-primary)] hover:bg-zinc-100 rounded-lg transition-all"
+                  className="flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-zinc-600 hover:text-[var(--color-primary)] hover:bg-zinc-100 rounded-lg transition-all"
                 >
                   Sign In
                 </Link>
